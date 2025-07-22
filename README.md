@@ -1,11 +1,5 @@
-sales analysis end to end project using sql, excel and power bi
 
-https://app.powerbi.com/reportEmbed?reportId=5d1cd891-a9f9-428e-bbb4-3b27b36b7070&autoAuth=true&ctid=957886e1-6d0b-44df-8768-a3ab1550488b
-# 📉 Global Tech Layoffs – SQL Data Cleaning & Exploration
-
-![MySQL](https://img.shields.io/badge/SQL-MySQL-informational?style=flat&logo=mysql&logoColor=white)
-![Status](https://img.shields.io/badge/Project-Complete-brightgreen)
-
+# 📉 Sales Analysis
 ---
 
 ## 📌 Project Overview
@@ -16,11 +10,18 @@ This SQL project analyses a global dataset of tech layoffs, focusing on patterns
 
 ## 🎯 Business Objective
 
-Executives and market analysts are increasingly focused on understanding:
-- Which companies and countries were hit hardest?
-- How do layoffs correlate with funding or startup stage?
-- Are layoff trends getting better or worse over time?
-- Which regions, sectors, or time periods require strategic attention?
+### **Business Request & User Stories**
+
+The business request for this data analyst project was an executive sales report for sales managers. Based on the request that was made from the business, the following user stories were defined to fulfill delivery and ensure that acceptance criteria were maintained throughout the project.
+
+| # | As a (role) | I want (request / demand) | So that I (user value) | Acceptance Criteria |  |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Sales Manager | To get a dashboard overview of internet sales | Can follow better which customers and products sells the best | A Power BI dashboard which updates data once a day |  |
+| 2 | Sales Representative | A detailed overview of Internet Sales per Customers | Can follow up my customers that buys the most and who we can sell more to | A Power BI dashboard which allows me to filter data for each customer |  |
+| 3 | Sales Representative | A detailed overview of Internet Sales per Products | Can follow up my Products that sells the most | A Power BI dashboard which allows me to filter data for each Product |  |
+| 4 | Sales Manager | A dashboard overview of internet sales | Follow sales over time against budget | A Power BI dashboard with graphs and KPIs comparing against budget |  |
+
+# Data Cleansing & Transformation (SQL)
 
 ---
 
@@ -71,41 +72,11 @@ These results would support interactive dashboards or trend reports for decision
 
 ## 💡 Query to Identify Most Impacted Locations Each Year
 
-```sql
-WITH Location_Year (country, location, years, total_laid_off) AS (
-	SELECT country,
-    location,
-    YEAR(date),
-    SUM(total_laid_off)
-	FROM layoffs_staging2
-	GROUP BY country, location, YEAR(date)
-	ORDER BY 3 ASC
-),
-Location_Year_Rank AS (
-	SELECT *, DENSE_RANK() OVER (
-		PARTITION BY years
-		ORDER BY total_laid_off DESC
-	) AS Ranking
-	FROM Location_Year
-	WHERE years IS NOT NULL
-	AND total_laid_off IS NOT NULL
-)
-SELECT *
-FROM Location_Year_Rank
-WHERE Ranking <= 10
-;
-```
+# Sales Management Dashboard
 
----
+The finished sales management dashboard with one page with works as a dashboard and overview, with two other pages focused on combining tables for necessary details and visualizations to show sales over time, per customers and per products.
 
-> 📸 Example Query: Top 5 Companies by Layoffs (by Year)  
-![SQL Output](images/top-layoff-companies.png)
+![](https://analyzewithaliportfolio.wordpress.com/wp-content/uploads/2021/02/dashboard-2.png?w=825)
 
----
 
-## 📬 Contact
-
-Feel free to reach out with any questions or feedback:
-
-📧 mitchellrogers.uk+github@gmail.com  
-🔗 [Back to Portfolio](https://mjr-portfolio.github.io/mjr_analyst_portfolio.github.io/)
+https://app.powerbi.com/reportEmbed?reportId=5d1cd891-a9f9-428e-bbb4-3b27b36b7070&autoAuth=true&ctid=957886e1-6d0b-44df-8768-a3ab1550488b
